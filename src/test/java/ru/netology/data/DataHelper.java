@@ -17,10 +17,6 @@ public class DataHelper {
         return new AuthInfo("petya", "123qwerty");
     }
 
-    public static AuthInfo getOtherAuthInfo(AuthInfo original) {
-        return new AuthInfo("petya", "123qwerty");
-    }
-
     public static void cleanDatabase() {
         SQLHelper.cleanDatabase();
     }
