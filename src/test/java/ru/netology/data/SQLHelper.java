@@ -33,7 +33,7 @@ public class SQLHelper {
             runner.update(conn, "DELETE FROM card_transactions");
             runner.update(conn, "DELETE FROM auth_codes");
             runner.update(conn, "DELETE FROM cards");
-            // runner.update(conn, "DELETE FROM users");
+            runner.update(conn, "DELETE FROM users");
         }
     }
 }

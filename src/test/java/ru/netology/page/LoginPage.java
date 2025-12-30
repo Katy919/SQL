@@ -6,6 +6,8 @@ import ru.netology.data.DataHelper;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage {
@@ -14,22 +16,24 @@ public class LoginPage {
     private SelenideElement loginButton = $("[data-test-id=action-login]");
     private SelenideElement errorNotification = $("[data-test-id=error-notification]");
 
-    public VerificationPage validLogin(DataHelper.AuthInfo info) {
+    public void Login(DataHelper.AuthInfo info) {
         loginField.setValue(info.getLogin());
         passwordField.setValue(info.getPassword());
         loginButton.click();
+    }
+
+    public VerificationPage validLogin(DataHelper.AuthInfo info) {
+        Login(info);
         return new VerificationPage();
     }
 
     public LoginPage invalidLogin(DataHelper.AuthInfo info) {
-        loginField.setValue(info.getLogin());
-        passwordField.setValue(info.getPassword());
-        loginButton.click();
+        Login(info);
         return this;
     }
-
-    public void shouldStayOnLoginPage() {
-        $("[data-test-id=code] input").shouldNotBe(Condition.visible, Duration.ofSeconds(5));
+    public void shouldShowError() {
+        errorNotification.shouldBe(visible)
+                .shouldHave(text("Пользователь заблокирован"));
     }
 }
 
