@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.open;
 public class PersonalAccountTest {
 
     @AfterAll
-    static  void tearDownAll() {
+    static void tearDownAll() {
         DataHelper.cleanDatabase();
     }
 
@@ -36,10 +36,12 @@ public class PersonalAccountTest {
         var validAuth = DataHelper.getAuthInfo();
         var invalidAuth = new DataHelper.AuthInfo(validAuth.getLogin(), "wrong");
         for (int i = 0; i < 3; i++) {
-            loginPage.invalidLogin(invalidAuth);
+            loginPage.clearFields();
+            loginPage.login(invalidAuth);
         }
 
-        loginPage.invalidLogin(validAuth);
+        loginPage.clearFields();
+        loginPage.login(validAuth);
         loginPage.shouldShowError();
     }
 }
